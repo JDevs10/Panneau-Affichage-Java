@@ -443,16 +443,32 @@ public class control_panel extends EquipeAbstaite {
 		String txtFile = "comboBox-info.txt";
 		
 		try {
+			
 			List<String> lines = Files.readAllLines(Paths.get(txtFile));
 			
 			for(String line : lines) {
-				String[] item = line.split(",");
-				System.out.println("item 1: "+item[0]+" ; item 2: "+item[1]+" ; item 3: "+item[2]);
-				
-				comboBox_domicile.addItem(item[0]);
-                comboBox_invite.addItem(item[1]);
-                comboBox_sport.addItem(item[2]);
-			}
+            	String[] verticalLine = line.split(",");
+            	String[] horizontalLine = line.split(";");
+            	System.out.println("horizontalLine : "+horizontalLine[0]+" \nverticalLine : "+verticalLine[0]);
+            	
+            	for (int i = (verticalLine.length)-1; i < verticalLine.length; i++) {
+            		if(verticalLine[0].equals("Teams")) {
+            			for (int j = 1; j < verticalLine.length; j++) {
+            				System.out.println("value: "+verticalLine.length+" ; value txt: "+verticalLine[j]);
+            				comboBox_domicile.addItem(verticalLine[j]);
+                            comboBox_invite.addItem(verticalLine[j]);
+						}
+            		}
+					
+            		if(verticalLine[0].equals("Sport")) {
+            			for (int j = 1; j < verticalLine.length; j++) {
+            				System.out.println("value: "+verticalLine.length+" ; value txt: "+verticalLine[j]);
+            				comboBox_sport.addItem(verticalLine[j]);
+						}
+            		}
+				}
+            }
+			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
